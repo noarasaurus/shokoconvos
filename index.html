@@ -40,24 +40,30 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .plusbtn svg{width:18px;height:18px}
 
 /* home */
-.ltitle{font-size:clamp(2.2rem,9vw,2.9rem);font-weight:800;letter-spacing:-.5px;line-height:1.05;margin:6px 0 6px}
-.tag{color:var(--gray);font-size:1.02rem;margin-bottom:24px}
+.thead{display:flex;align-items:center;gap:10px;margin:6px 0 22px}
+.ltitle{font-size:clamp(2.2rem,9vw,2.9rem);font-weight:800;letter-spacing:-.5px;line-height:1.05}
+.sticker{width:52px;height:52px;flex:none;transform:rotate(10deg);animation:bob 3.6s ease-in-out infinite}
+.hint{color:var(--gray);margin:-10px 0 22px}
 .floor{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px}
 .mini{--c:#ff2d55;position:relative;cursor:pointer;border-radius:30px;padding:16px 14px 14px;color:#fff;text-align:start;overflow:hidden;
   background:linear-gradient(155deg,color-mix(in srgb,var(--c) 70%,#fff) 0%,var(--c) 55%,color-mix(in srgb,var(--c) 82%,#000) 100%);
   box-shadow:0 22px 34px -20px color-mix(in srgb,var(--c) 80%,transparent),inset 0 1.5px 0 rgba(255,255,255,.55);
-  transition:transform .35s var(--spring);animation:rise .5s var(--spring) backwards}
-.mini:active{transform:scale(.96)}
+  animation:rise .5s var(--spring) backwards,float 5.5s ease-in-out .5s infinite;transition:scale .25s var(--spring)}
+.mini:active{scale:.96}
 .mini small{display:block;font-size:.76rem;font-weight:500;opacity:.85}
 .mini b{display:block;font-size:1.45rem;font-weight:800;line-height:1.1;margin-top:2px;word-break:break-word;letter-spacing:-.3px}
-.mglass{margin:12px 0 10px;height:86px;border-radius:20px;background:rgba(255,255,255,.26);box-shadow:inset 0 2px 8px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.4);display:flex;flex-wrap:wrap-reverse;align-content:flex-start;justify-content:center;gap:1px;padding:6px;overflow:hidden;position:relative}
+.mglass{margin:12px 0 10px;height:100px;border-radius:20px;background:rgba(255,255,255,.26);box-shadow:inset 0 2px 8px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.4);display:flex;flex-wrap:wrap-reverse;align-content:flex-start;justify-content:center;gap:1px;padding:6px;overflow:hidden;position:relative;direction:ltr}
 .mglass::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.35) 0 16%,transparent 16% 26%,rgba(255,255,255,.14) 26% 31%,transparent 31%);pointer-events:none}
-.mball{width:20px;height:20px;border-radius:50%;flex:none;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.9) 0 10%,transparent 12%),linear-gradient(180deg,var(--bc) 50%,#fff 50%);box-shadow:0 2px 3px rgba(0,0,0,.18)}
-.mstats{display:inline-block;font-size:.78rem;font-weight:600;background:rgba(255,255,255,.24);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:999px;padding:3px 11px}
-.mini.new{background:var(--card);color:var(--blue);box-shadow:0 1px 0 rgba(0,0,0,.03),0 18px 30px -22px rgba(60,40,90,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:200px;text-align:center}
-.mini.new b{font-size:1.05rem;font-weight:600;letter-spacing:0}
-.mini.new .plusbig{width:56px;height:56px;border-radius:50%;background:rgba(0,122,255,.12);display:grid;place-items:center}
-.mini.new .plusbig svg{width:26px;height:26px}
+.mclaw{position:absolute;top:0;left:50%;width:28px;margin-left:-14px;transform-origin:50% 0;animation:swing 3.8s ease-in-out infinite;z-index:1}
+.mball{--bc:#ff6b8a;--i:0;position:relative;width:22px;height:22px;border-radius:50%;flex:none;
+  background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.55) 0 12%,transparent 30%),radial-gradient(circle at 50% 60%,var(--bc),color-mix(in srgb,var(--bc) 78%,#000));box-shadow:0 2px 3px rgba(0,0,0,.2)}
+.mball .face{inset:19%;font-size:10px}
+.mini:hover .mball,.mini:focus-visible .mball{animation:hop .7s var(--spring) calc(var(--i)*45ms) both}
+.mstats{display:inline-block;font-size:.8rem;font-weight:600;background:rgba(255,255,255,.24);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:999px;padding:3px 11px}
+.floor.edit .mini{animation:jig .26s ease-in-out infinite alternate;cursor:default}
+.floor.edit .mini:nth-child(even){animation-delay:-.13s}
+.delbadge{position:absolute;top:10px;inset-inline-end:10px;width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;z-index:5;box-shadow:0 4px 8px rgba(0,0,0,.25)}
+.delbadge svg{width:16px;height:16px}
 
 /* machine */
 .machine{--c:#ff2d55;margin:8px auto 0;max-width:440px;border-radius:44px;padding:18px 16px 18px;color:#fff;
@@ -76,21 +82,23 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .glass::before{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(0,0,0,.1))}
 .glass::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;background:linear-gradient(112deg,rgba(255,255,255,.5) 0 13%,transparent 13% 22%,rgba(255,255,255,.22) 22% 27%,transparent 27%)}
 .rail{position:absolute;top:0;left:0;right:0;height:16px;z-index:3;background:linear-gradient(#f2f2f7,#d8d8de);box-shadow:0 2px 4px rgba(0,0,0,.15)}
-.claw{position:absolute;top:0;width:54px;margin-left:-27px;z-index:4;transition:left .9s cubic-bezier(.45,0,.2,1)}
-.cable{width:4px;margin:16px auto 0;background:linear-gradient(90deg,#d1d1d6,#f2f2f7,#c7c7cc);border-radius:0 0 2px 2px;transition:height .9s cubic-bezier(.45,0,.2,1)}
+.claw{position:absolute;top:0;width:54px;margin-left:-27px;z-index:4;transition:left .6s cubic-bezier(.45,0,.2,1)}
+.cable{width:4px;margin:16px auto 0;background:linear-gradient(90deg,#d1d1d6,#f2f2f7,#c7c7cc);border-radius:0 0 2px 2px;transition:height .6s cubic-bezier(.45,0,.2,1)}
 .head{position:relative;width:54px;height:54px;filter:drop-shadow(0 4px 4px rgba(0,0,0,.2))}
 .head svg{width:54px;height:54px;display:block;overflow:visible}
-.pr{transition:transform .4s var(--spring);transform-origin:27px 14px}
+.pr{transition:transform .3s var(--spring);transform-origin:27px 14px}
 .claw.open .pr.l{transform:rotate(24deg)}
 .claw.open .pr.r{transform:rotate(-24deg)}
-.held{position:absolute;left:50%;top:40px;transform:translateX(-50%);z-index:-1;transition:transform .55s cubic-bezier(.5,0,.9,.5)}
+.held{position:absolute;left:50%;top:40px;transform:translateX(-50%);z-index:-1;transition:transform .4s cubic-bezier(.5,0,.9,.5)}
 .chutezone{position:absolute;left:0;bottom:12px;width:66px;height:58px;z-index:1;border-radius:0 20px 0 0;background:rgba(255,255,255,.4);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:inset -1px 1px 0 rgba(255,255,255,.7),inset 0 3px 10px rgba(0,0,0,.14)}
-.chutezone span{position:absolute;left:0;right:0;top:8px;text-align:center;direction:rtl;font-size:.7rem;font-weight:700;color:color-mix(in srgb,var(--c) 70%,#000);opacity:.8}
+.chutezone span{position:absolute;left:0;right:0;top:8px;text-align:center;direction:rtl;font-size:.7rem;font-weight:700;color:color-mix(in srgb,var(--c) 70%,#000);opacity:.85}
+
 .ball{--bc:#ff6b8a;position:absolute;border-radius:50%;cursor:pointer;z-index:2;
-  background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.95) 0 8%,rgba(255,255,255,.2) 14%,transparent 20%),linear-gradient(180deg,var(--bc) 49%,rgba(0,0,0,.08) 49% 52%,#fff 52%);
-  box-shadow:inset 0 -5px 8px rgba(0,0,0,.1),0 5px 7px rgba(0,0,0,.18);
+  background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.55) 0 12%,transparent 30%),radial-gradient(circle at 50% 60%,var(--bc),color-mix(in srgb,var(--bc) 78%,#000));
+  box-shadow:inset 0 -5px 8px rgba(0,0,0,.12),0 5px 7px rgba(0,0,0,.2);
   transition:left .5s var(--spring),bottom .5s var(--spring),transform .2s var(--spring)}
-.ball:active{transform:scale(.94)}
+.ball:hover{transform:scale(1.08)}
+.face{position:absolute;inset:20%;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;line-height:1;box-shadow:inset 0 1px 2px rgba(0,0,0,.12);font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 .ball.drop{animation:dropin .95s cubic-bezier(.3,.1,.4,1)}
 .mempty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:rgba(60,60,67,.7);padding:20px 20px 40px;direction:rtl;z-index:1;font-weight:500}
 
@@ -112,7 +120,7 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
 .row{--bc:#ff6b8a;display:flex;align-items:center;gap:12px;padding:12px 16px;position:relative;animation:rise .35s var(--spring) backwards}
 .row+.row::before{content:"";position:absolute;top:0;inset-inline-start:54px;inset-inline-end:0;height:.5px;background:var(--hair)}
 .row .tx{flex:1;cursor:pointer;font-size:1.04rem;word-break:break-word;padding:3px 0}
-.row .dot{width:11px;height:11px;border-radius:50%;background:var(--bc);flex:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--bc) 22%,transparent)}
+.chip{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:17px;line-height:1;background:color-mix(in srgb,var(--bc) 30%,#fff);font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 .chk{width:28px;height:28px;flex:none;border-radius:50%;border:2px solid #c7c7cc;display:grid;place-items:center;color:transparent;transition:background .2s,border-color .2s,transform .3s var(--spring),color .2s}
 .chk:active{transform:scale(.85)}
 .chk.on{background:var(--green);border-color:var(--green);color:#fff;transform:scale(1.12)}
@@ -124,7 +132,8 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
   background:linear-gradient(160deg,color-mix(in srgb,var(--bc) 14%,#fff),color-mix(in srgb,var(--bc) 34%,#fff));
   box-shadow:0 16px 26px -20px color-mix(in srgb,var(--bc) 90%,#000),inset 0 1.5px 0 rgba(255,255,255,.8);transition:transform .3s var(--spring);animation:rise .4s var(--spring) backwards}
 .prize:active{transform:scale(.96)}
-.prize .pb{width:30px;height:30px;border-radius:50%;margin-bottom:10px;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.95) 0 9%,transparent 12%),linear-gradient(180deg,var(--bc) 49%,#fff 49%);box-shadow:0 3px 5px rgba(0,0,0,.2)}
+.prize .pb{position:relative;width:36px;height:36px;border-radius:50%;margin-bottom:10px;background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.55) 0 12%,transparent 30%),radial-gradient(circle at 50% 60%,var(--bc),color-mix(in srgb,var(--bc) 78%,#000));box-shadow:0 3px 5px rgba(0,0,0,.2)}
+.prize .pb .face{font-size:15px}
 .prize .t{font-weight:700;line-height:1.25;word-break:break-word;font-size:1.02rem}
 .prize .note{font-size:.8rem;margin-top:5px;color:rgba(60,60,67,.75);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .prize .d{margin-top:10px;font-size:.76rem;font-weight:600;color:rgba(60,60,67,.65)}
@@ -138,8 +147,9 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
 .sheet::before{content:"";position:absolute;top:8px;left:50%;width:38px;height:5px;margin-left:-19px;border-radius:3px;background:#d1d1d6}
 @media (min-width:600px){.overlay{align-items:center;padding:20px}.sheet{border-radius:32px}}
 .sheet h3{font-size:1.35rem;font-weight:800;letter-spacing:-.3px;margin-bottom:16px}
+.sheet p.msg{color:var(--gray);margin:-6px 0 16px}
 .field{display:block;margin-bottom:14px}
-.field span{display:block;font-size:.82rem;font-weight:500;color:var(--gray);margin:0 6px 5px}
+.field span.lb{display:block;font-size:.82rem;font-weight:500;color:var(--gray);margin:0 6px 5px}
 .field input,.field textarea{width:100%;font:inherit;color:var(--ink);background:var(--fill);border:0;border-radius:14px;padding:12px 14px;outline:none;transition:box-shadow .2s}
 .field input:focus,.field textarea:focus{box-shadow:0 0 0 2.5px rgba(0,122,255,.5)}
 .field textarea{resize:none;height:66px}
@@ -149,22 +159,28 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
 .btn:active{transform:scale(.94)}
 .btn.main{background:var(--blue);color:#fff}
 .btn.soft{background:rgba(0,122,255,.12);color:var(--blue)}
+.btn.red{background:var(--red);color:#fff}
 .btn.danger{color:var(--red);padding-inline:10px}
 .btn.danger.sure{background:var(--red);color:#fff;padding-inline:18px}
 .swatches{display:flex;gap:12px;flex-wrap:wrap;margin:0 6px}
 .sw{width:38px;height:38px;border-radius:50%;background:var(--sc);box-shadow:inset 0 -3px 6px rgba(0,0,0,.14);transition:transform .25s var(--spring)}
 .sw[aria-pressed="true"]{box-shadow:0 0 0 3px #fff,0 0 0 5.5px var(--sc);transform:scale(1.08)}
+.icons{display:flex;gap:6px;overflow-x:auto;padding:4px 6px 8px;margin:0 -6px;scrollbar-width:none}
+.icons::-webkit-scrollbar{display:none}
+.ic{flex:none;min-width:42px;height:42px;border-radius:14px;background:var(--fill);font-size:21px;display:grid;place-items:center;padding:0 8px;transition:transform .2s var(--spring);font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.ic.auto{font-size:.82rem;font-weight:600;color:var(--blue);font-family:inherit}
+.ic[aria-pressed="true"]{box-shadow:0 0 0 2.5px var(--blue);background:rgba(0,122,255,.1);transform:scale(1.06)}
 .reveal{text-align:center;padding:6px 0 8px}
-.reveal .rb{--bc:#ff6b8a;width:104px;height:104px;border-radius:50%;margin:6px auto 14px;
-  background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.95) 0 8%,rgba(255,255,255,.2) 14%,transparent 20%),linear-gradient(180deg,var(--bc) 49%,rgba(0,0,0,.08) 49% 52%,#fff 52%);
-  box-shadow:inset 0 -10px 14px rgba(0,0,0,.1),0 20px 28px -10px color-mix(in srgb,var(--bc) 70%,#000);animation:pop .8s var(--spring)}
+.reveal .rb{--bc:#ff6b8a;position:relative;width:112px;height:112px;border-radius:50%;margin:6px auto 14px;
+  background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.55) 0 12%,transparent 30%),radial-gradient(circle at 50% 60%,var(--bc),color-mix(in srgb,var(--bc) 78%,#000));
+  box-shadow:inset 0 -10px 14px rgba(0,0,0,.12),0 20px 28px -10px color-mix(in srgb,var(--bc) 70%,#000);animation:pop .8s var(--spring)}
+.reveal .rb .face{font-size:48px}
 .reveal small{font-weight:600;color:var(--gray)}
 .reveal .big{font-size:1.9rem;font-weight:800;line-height:1.2;letter-spacing:-.4px;margin:4px 0 18px;word-break:break-word}
 .reveal .actions{justify-content:center}
 
 .toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(30px) scale(.95);background:rgba(40,36,56,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;border-radius:999px;padding:11px 20px;font-weight:500;font-size:.95rem;opacity:0;pointer-events:none;transition:.4s var(--spring);z-index:30;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-.local{background:rgba(255,204,0,.2);color:#8a6a00;border-radius:14px;padding:9px 14px;font-size:.86rem;font-weight:500;margin:4px 0 14px;text-align:center}
 .loading{text-align:center;padding:90px 0;color:var(--gray)}
 
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
@@ -173,6 +189,11 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
 @keyframes up{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 @keyframes pop{0%{transform:scale(.4);opacity:0}100%{transform:none;opacity:1}}
+@keyframes swing{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes bob{0%,100%{transform:rotate(10deg) translateY(0)}50%{transform:rotate(4deg) translateY(-4px)}}
+@keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-9px) rotate(14deg)}65%{transform:translateY(0) rotate(-8deg)}100%{transform:none}}
+@keyframes jig{from{transform:rotate(-1.4deg)}to{transform:rotate(1.4deg)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 :focus-visible{outline:3px solid rgba(0,122,255,.55);outline-offset:3px}
 @media (max-width:420px){.glass{height:300px}}
@@ -189,13 +210,44 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
   var GEAR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>';
   var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
   var PLUS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+  var MINUS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M6 12h12"/></svg>';
+  var MUG='<svg class="sticker" viewBox="0 0 56 56" aria-hidden="true"><path d="M14 20h26v16a12 12 0 0 1-12 12h-2A12 12 0 0 1 14 36z" fill="#7a4128"/><ellipse cx="27" cy="20" rx="13" ry="4.5" fill="#a9684a"/><path d="M40 25h4a6 6 0 0 1 0 12h-4" fill="none" stroke="#7a4128" stroke-width="4" stroke-linecap="round"/><circle cx="22" cy="18.5" r="3.2" fill="#fff"/><circle cx="31" cy="19" r="2.6" fill="#ffd1dc"/><path d="M20 12c-2-2 2-3 0-6M28 12c-2-2 2-3 0-6M36 12c-2-2 2-3 0-6" fill="none" stroke="#ff8fb1" stroke-width="2.4" stroke-linecap="round"/></svg>';
+  var MCLAW='<svg viewBox="0 0 28 44" aria-hidden="true"><rect x="13" y="0" width="2" height="21" fill="#e9e9ee"/><path d="M10 28q-6 4-3 12M18 28q6 4 3 12" fill="none" stroke="#9a9aa2" stroke-width="5" stroke-linecap="round"/><path d="M10 28q-6 4-3 12M18 28q6 4 3 12" fill="none" stroke="#f2f2f7" stroke-width="2.6" stroke-linecap="round"/><circle cx="14" cy="25" r="5.5" fill="#fff" stroke="#9a9aa2" stroke-width="1.5"/><circle cx="14" cy="25" r="2" fill="#ff9500"/></svg>';
   var CLAW='<svg viewBox="0 0 54 54"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d6d6dc"/></linearGradient></defs><rect x="22" y="0" width="10" height="9" rx="3" fill="#c7c7cc"/><g class="pr l"><path d="M21 17C9 20 6 36 13 47" fill="none" stroke="#a9a9b0" stroke-width="8" stroke-linecap="round"/><path d="M21 17C9 20 6 36 13 47" fill="none" stroke="#ececf1" stroke-width="3.5" stroke-linecap="round"/></g><g class="pr r"><path d="M33 17C45 20 48 36 41 47" fill="none" stroke="#a9a9b0" stroke-width="8" stroke-linecap="round"/><path d="M33 17C45 20 48 36 41 47" fill="none" stroke="#ececf1" stroke-width="3.5" stroke-linecap="round"/></g><circle cx="27" cy="14" r="10" fill="url(#cg)" stroke="#b5b5bc" stroke-width="2"/><circle cx="27" cy="14" r="4" fill="#ff9500"/></svg>';
   var BALLS=['#ff6b8a','#ffb340','#3fd0c0','#6ea8ff','#ff8a5c','#b98cff','#6fd47e'];
   var CABS=['#ff2d55','#30b0c7','#ff9500','#007aff','#af52de','#34c759'];
 
+  /* ---------- pictures for the balls ---------- */
+  var KEYS=[
+    ['שוקו','🍫'],['שוקולד','🍫'],['קפה','☕'],['עוגה','🍰'],['קינוח','🍰'],['גלידה','🍦'],['פיצה','🍕'],['אוכל','🍝'],['מסעד','🍝'],['בישול','🍳'],['מתכון','🍳'],['יין','🍷'],['בירה','🍺'],
+    ['כלב','🐶'],['חתול','🐱'],['חיות','🐾'],['חיה','🐾'],['ציפור','🐦'],['פרפר','🦋'],['שינוי','🦋'],
+    ['סרט','🎬'],['קולנוע','🎬'],['סדרה','📺'],['נטפליקס','📺'],['בכינו','😢'],['בכי','😢'],['עצוב','😢'],['צחוק','😂'],['מצחיק','😂'],['בדיח','😂'],
+    ['שיר','🎵'],['מוזיקה','🎵'],['להקה','🎸'],['קונצרט','🎤'],['ריקוד','💃'],['מסיבה','🪩'],
+    ['טיול','🧳'],['טיסה','✈️'],['חו"ל','✈️'],['חופש','🏝️'],['קיץ','☀️'],['ים','🌊'],['חוף','🏖️'],['הר','⛰️'],['טבע','🌲'],['מסלול','🥾'],['חורף','❄️'],['גשם','🌧️'],['שמש','☀️'],['יום מושלם','🌈'],
+    ['אהבה','💘'],['זוגיות','💑'],['דייט','💘'],['בחור','💘'],['נשיק','💋'],['לב','❤️'],['פרידה','💔'],
+    ['חלום','🌙'],['לילה','🌙'],['שינה','😴'],['פחד','😨'],['חשש','😨'],['חרדה','😰'],['סוד','🤫'],
+    ['זיכרון','📸'],['ילדות','🧸'],['נוסטלג','📼'],['תמונ','📸'],
+    ['עבודה','💼'],['קריירה','💼'],['משרד','💼'],['לימוד','🎓'],['אוניברסיט','🎓'],['קורס','🎓'],['מבחן','📝'],['ספר','📚'],['קריאה','📚'],
+    ['כסף','💰'],['תקציב','💰'],['דירה','🏠'],['בית','🏠'],['משפחה','👪'],['אמא','👩'],['אבא','👨'],['אחות','👭'],['חברות','🫶'],['חברים','🫶'],
+    ['הפתעה','🎁'],['מתנה','🎁'],['יום הולדת','🎂'],['חתונה','💍'],
+    ['תוכנית','🗺️'],['עתיד','🔮'],['יעד','🎯'],['מטרה','🎯'],['רעיון','💡'],['מחשבה','💭'],['זמן','⏰'],['שעון','⏰'],
+    ['ספורט','🏃‍♀️'],['ריצה','🏃‍♀️'],['כושר','💪'],['יוגה','🧘‍♀️'],['בריאות','🩺'],['רופא','🩺'],['טיפול','🛋️'],
+    ['אמנות','🎨'],['ציור','🎨'],['יצירה','🎨'],['עיצוב','🎨'],['אופנה','👗'],['בגד','👗'],['נעל','👠'],['איפור','💄'],
+    ['טכנולוגיה','💻'],['מחשב','💻'],['טלפון','📱'],['אפליקציה','📱'],['רשתות','📱'],['משחק','🎮'],
+    ['אמונה','🔮'],['רוח','✨'],['מזל','🍀'],['כוח','💪'],['אושר','😊'],['שמח','😊'],['כעס','😤'],['קנאה','🟢'],['בדידות','🌌']
+  ];
+  var FALLBACK=['✨','💭','🌈','🫧','🍀','🪩','🧸','🌻','🍓','🪐'];
+  var ICONS=['🍫','☕','🍰','🍕','🐾','🦋','🎬','🎵','✈️','🏝️','🌲','💘','🌙','😨','📸','🧸','💼','🎓','💰','🏠','👪','🫶','🎁','🎯','💡','💭','⏰','🏃‍♀️','🎨','👗','💻','📱','🎮','🔮','🍀','😂','😢','😊','✨','🌈'];
+  function iconFor(text){
+    var s=String(text||'');
+    for(var i=0;i<KEYS.length;i++){if(s.indexOf(KEYS[i][0])>-1)return KEYS[i][1]}
+    return FALLBACK[hash(s)%FALLBACK.length];
+  }
+  function iconOf(t){return t.icon||iconFor(t.text)}
+
   var $=function(id){return document.getElementById(id)};
   var lists=[],topics=[],mode='pending',cols={},got={lists:false,topics:false},ready=false;
-  var routeId=null,dropId=null,popId=null,busy=false,lastPick=null,toastT;
+  var routeId=null,dropId=null,popId=null,busy=false,lastPick=null,editMode=false,toastT;
 
   function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
   function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
@@ -205,7 +257,13 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
   function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
   function reduced(){return window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches}
   function ballColor(id){return BALLS[hash(id)%BALLS.length]}
+  function countLabel(n){return n===0?'אין שיחות שוקו':n===1?'שיחת שוקו אחת':n+' שיחות שוקו'}
   function toast(m){var t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show')},2600)}
+  function makeBall(t,s,cls){
+    var b=el('div',cls||'ball');b.style.setProperty('--bc',ballColor(t.id));
+    if(s){b.style.width=s+'px';b.style.height=s+'px'}
+    var f=el('span','face',iconOf(t));if(s)f.style.fontSize=Math.round(s*.4)+'px';b.appendChild(f);return b;
+  }
 
   /* ---------- storage ---------- */
   function saveLocal(){try{localStorage.setItem('shoko-v2',JSON.stringify({lists:lists,topics:topics}))}catch(e){}}
@@ -248,13 +306,14 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
   function removeList(id){
     topics.filter(function(t){return t.listId===id}).forEach(function(t){unpersist('topics',t.id)});
     topics=topics.filter(function(t){return t.listId!==id});
-    lists=lists.filter(function(l){return l.id!==id});unpersist('lists',id);go(null);
+    lists=lists.filter(function(l){return l.id!==id});unpersist('lists',id);
+    if(routeId===id)go(null);else render();
   }
 
   /* ---------- routing ---------- */
   function readRoute(){var m=(location.hash||'').match(/^#l-([a-z0-9]+)$/);routeId=m?m[1]:null}
   function go(id){
-    routeId=id;
+    routeId=id;editMode=false;
     try{location.hash=id?'l-'+id:'home'}catch(e){}
     window.scrollTo(0,0);render();
   }
@@ -269,7 +328,7 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
   }
   overlay.addEventListener('click',function(e){if(e.target===overlay)closeSheet()});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
-  function field(label,node){var l=el('label','field');l.appendChild(el('span',null,label));l.appendChild(node);return l}
+  function field(label,node){var l=el('label','field');l.appendChild(el('span','lb',label));l.appendChild(node);return l}
   function swatchPicker(initial){
     var wrap=el('div','swatches'),val=initial||CABS[0];
     CABS.forEach(function(c){
@@ -280,15 +339,23 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
     });
     return{node:wrap,get:function(){return val}};
   }
+  function iconPicker(current,auto){
+    var wrap=el('div','icons'),val=current||'';
+    function mark(){Array.prototype.forEach.call(wrap.children,function(x){x.setAttribute('aria-pressed',x.dataset.v===val?'true':'false')})}
+    var a=el('button','ic auto','אוטומטי ('+auto+')');a.type='button';a.dataset.v='';a.onclick=function(){val='';mark()};wrap.appendChild(a);
+    ICONS.forEach(function(e){var b=el('button','ic',e);b.type='button';b.dataset.v=e;b.onclick=function(){val=e;mark()};wrap.appendChild(b)});
+    mark();
+    return{node:wrap,get:function(){return val}};
+  }
 
   function openCreate(){
     sheet.textContent='';sheet.appendChild(el('h3',null,'שיח חדש'));
-    var name=el('input');name.type='text';name.maxLength=24;name.placeholder='שם החבר/ה';
+    var name=el('input');name.type='text';name.maxLength=24;name.placeholder='שם החברה';
     sheet.appendChild(field('עם מי השיחות?',name));
     var sp=swatchPicker(CABS[lists.length%CABS.length]);
-    var f=el('div','field');f.appendChild(el('span',null,'צבע למכונה'));f.appendChild(sp.node);sheet.appendChild(f);
+    var f=el('div','field');f.appendChild(el('span','lb','צבע למכונה'));f.appendChild(sp.node);sheet.appendChild(f);
     var row=el('div','actions');
-    var ok=el('button','btn main','פותחים');ok.type='button';
+    var ok=el('button','btn main','פתחי מכונה');ok.type='button';
     ok.onclick=function(){var v=name.value.trim();if(!v){name.focus();return}closeSheet();addList(v,sp.get())};
     var cl=el('button','btn soft','ביטול');cl.type='button';cl.onclick=closeSheet;
     row.appendChild(ok);row.appendChild(cl);sheet.appendChild(row);
@@ -300,20 +367,31 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
     var name=el('input');name.type='text';name.maxLength=24;name.value=l.name;
     sheet.appendChild(field('שם',name));
     var sp=swatchPicker(l.color);
-    var f=el('div','field');f.appendChild(el('span',null,'צבע'));f.appendChild(sp.node);sheet.appendChild(f);
+    var f=el('div','field');f.appendChild(el('span','lb','צבע'));f.appendChild(sp.node);sheet.appendChild(f);
     var row=el('div','actions');
     var ok=el('button','btn main','שמירה');ok.type='button';
     ok.onclick=function(){var v=name.value.trim();if(!v){name.focus();return}l.name=v;l.color=sp.get();persist('lists',l);closeSheet();render()};
     row.appendChild(ok);row.appendChild(el('span','grow'));
     var del=el('button','btn danger','מחיקת המכונה');del.type='button';var armed=false;
-    del.onclick=function(){if(!armed){armed=true;del.textContent='בטוחות? הכל יימחק';del.classList.add('sure');return}closeSheet();removeList(l.id)};
+    del.onclick=function(){if(!armed){armed=true;del.textContent='בטוחה? הכל יימחק';del.classList.add('sure');return}closeSheet();removeList(l.id)};
     row.appendChild(del);sheet.appendChild(row);showSheet();
+  }
+  function openDeleteList(l){
+    var n=topics.filter(function(t){return t.listId===l.id}).length;
+    sheet.textContent='';sheet.appendChild(el('h3',null,'למחוק את המכונה של '+l.name+'?'));
+    sheet.appendChild(el('p','msg',n?'גם '+n+' השיחות שבה יימחקו, ואי אפשר לשחזר.':'אי אפשר לשחזר אחרי המחיקה.'));
+    var row=el('div','actions');
+    var ok=el('button','btn red','מחיקה');ok.type='button';ok.onclick=function(){closeSheet();removeList(l.id)};
+    var cl=el('button','btn soft','ביטול');cl.type='button';cl.onclick=closeSheet;
+    row.appendChild(ok);row.appendChild(cl);sheet.appendChild(row);showSheet();
   }
   function openEdit(id){
     var t=topics.find(function(x){return x.id===id});if(!t)return;
-    sheet.textContent='';sheet.appendChild(el('h3',null,t.done?'שיחה שהייתה':'עריכת נושא'));
+    sheet.textContent='';sheet.appendChild(el('h3',null,t.done?'שיחה שדוברה':'עריכת שיחת שוקו'));
     var inp=el('input');inp.type='text';inp.maxLength=120;inp.value=t.text;
     sheet.appendChild(field('הנושא',inp));
+    var ip=iconPicker(t.icon,iconFor(inp.value));
+    var fi=el('div','field');fi.appendChild(el('span','lb','ציור על הכדור'));fi.appendChild(ip.node);sheet.appendChild(fi);
     var date,note;
     if(t.done){
       date=el('input');date.type='date';date.value=t.doneAt||today();
@@ -324,7 +402,8 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
     var save=el('button','btn main','שמירה');save.type='button';
     save.onclick=function(){
       var v=inp.value.trim();if(!v){inp.focus();return}
-      t.text=v;if(t.done){t.doneAt=date.value||today();var n=note.value.trim();if(n)t.note=n;else delete t.note}
+      t.text=v;var ic=ip.get();if(ic)t.icon=ic;else delete t.icon;
+      if(t.done){t.doneAt=date.value||today();var n=note.value.trim();if(n)t.note=n;else delete t.note}
       persist('topics',t);closeSheet();render();
     };
     row.appendChild(save);
@@ -332,13 +411,13 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
     tog.onclick=function(){closeSheet();setDone(t.id,!t.done)};row.appendChild(tog);
     row.appendChild(el('span','grow'));
     var del=el('button','btn danger','מחיקה');del.type='button';var armed=false;
-    del.onclick=function(){if(!armed){armed=true;del.textContent='בטוחות?';del.classList.add('sure');return}closeSheet();removeTopic(t.id)};
+    del.onclick=function(){if(!armed){armed=true;del.textContent='בטוחה?';del.classList.add('sure');return}closeSheet();removeTopic(t.id)};
     row.appendChild(del);sheet.appendChild(row);showSheet();
     inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();save.click()}});
   }
   function openReveal(t,canAgain){
     sheet.textContent='';
-    var box=el('div','reveal');var rb=el('div','rb');rb.style.setProperty('--bc',ballColor(t.id));box.appendChild(rb);
+    var box=el('div','reveal');var rb=makeBall(t,0,'rb');box.appendChild(rb);
     box.appendChild(el('small',null,'תפסנו! הנושא להיום'));box.appendChild(el('div','big',t.text));
     sheet.appendChild(box);
     var row=el('div','actions');
@@ -352,30 +431,35 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
   /* ---------- home ---------- */
   function renderHome(){
     var app=$('app');app.textContent='';
-    var nav=el('div','nav');nav.appendChild(el('span'));
+    var nav=el('div','nav');
+    if(lists.length){
+      var eb=el('button','navbtn',editMode?'סיום':'עריכה');eb.type='button';eb.onclick=function(){editMode=!editMode;render()};nav.appendChild(eb);
+    }else nav.appendChild(el('span'));
     var pl=el('button','plusbtn');pl.type='button';pl.innerHTML=PLUS;pl.setAttribute('aria-label','שיח חדש');pl.onclick=openCreate;nav.appendChild(pl);
     app.appendChild(nav);
-    app.appendChild(el('div','ltitle','שיחות שוקו'));
-    app.appendChild(el('p','tag',lists.length?'בחרו חבר/ה וגשו למכונה':'עוד אין מכונות. פתחו את הראשונה'));
-    if(mode==='local')app.appendChild(el('div','local','הרשימות נשמרות רק במכשיר הזה'));
-    var floor=el('div','floor');
+    var th=el('div','thead');th.appendChild(el('div','ltitle','שיחות שוקו'));
+    var mw=el('span');mw.innerHTML=MUG;th.appendChild(mw.firstChild);app.appendChild(th);
+    if(!lists.length)app.appendChild(el('p','hint','לחצי על + כדי לפתוח את המכונה הראשונה'));
+    var floor=el('div','floor'+(editMode?' edit':''));
     lists.slice().sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0)}).forEach(function(l,idx){
-      var mine=topics.filter(function(t){return t.listId===l.id});
-      var open=mine.filter(function(t){return!t.done}),done=mine.length-open.length;
-      var c=el('div','mini');c.style.setProperty('--c',l.color||CABS[0]);c.style.animationDelay=(idx*60)+'ms';c.tabIndex=0;c.setAttribute('role','button');
+      var open=topics.filter(function(t){return t.listId===l.id&&!t.done}).sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0)});
+      var c=el('div','mini');c.style.setProperty('--c',l.color||CABS[0]);c.style.animationDelay=(idx*60)+'ms,'+(idx*60+500)+'ms';c.tabIndex=0;c.setAttribute('role','button');
       c.appendChild(el('small',null,'שיחות שוקו עם'));c.appendChild(el('b',null,l.name));
       var g=el('div','mglass');
-      open.slice(0,24).forEach(function(t){var b=el('div','mball');b.style.setProperty('--bc',ballColor(t.id));g.appendChild(b)});
+      var cl=el('div','mclaw');cl.innerHTML=MCLAW;cl.style.animationDelay=(-(hash(l.id)%38)/10)+'s';g.appendChild(cl);
+      open.slice(0,24).forEach(function(t,i){var b=makeBall(t,0,'mball');b.style.setProperty('--i',i);g.appendChild(b)});
       c.appendChild(g);
-      c.appendChild(el('span','mstats',open.length+' מחכים · '+done+' נתפסו'));
-      c.onclick=function(){go(l.id)};
-      c.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go(l.id)}};
+      c.appendChild(el('span','mstats',countLabel(open.length)));
+      if(editMode){
+        var d=el('button','delbadge');d.type='button';d.innerHTML=MINUS;d.setAttribute('aria-label','מחיקת המכונה של '+l.name);
+        d.onclick=function(e){e.stopPropagation();openDeleteList(l)};c.appendChild(d);
+      }else{
+        c.onclick=function(){go(l.id)};
+        c.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go(l.id)}};
+      }
       floor.appendChild(c);
     });
-    var n=el('div','mini new');n.tabIndex=0;n.setAttribute('role','button');n.style.animationDelay=(lists.length*60)+'ms';
-    var pb=el('div','plusbig');pb.innerHTML=PLUS;n.appendChild(pb);n.appendChild(el('b',null,'שיח חדש'));
-    n.onclick=openCreate;n.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openCreate()}};
-    floor.appendChild(n);app.appendChild(floor);
+    app.appendChild(floor);
   }
 
   /* ---------- list view ---------- */
@@ -387,54 +471,53 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
     var done=mine.filter(function(t){return t.done}).sort(function(a,b){return(b.doneAt||'').localeCompare(a.doneAt||'')||(b.createdAt||0)-(a.createdAt||0)});
 
     var nav=el('div','nav');
-    var back=el('button','navbtn');back.type='button';back.innerHTML=CHEV;back.appendChild(document.createTextNode('כל החברים'));back.onclick=function(){go(null)};
+    var back=el('button','navbtn');back.type='button';back.innerHTML=CHEV;back.appendChild(document.createTextNode('כל החברות'));back.onclick=function(){go(null)};
     back.firstChild.style.transform='scaleX(-1)';
     var gear=el('button','plusbtn');gear.type='button';gear.innerHTML=GEAR;gear.setAttribute('aria-label','הגדרות');gear.onclick=function(){openSettings(l)};
     nav.appendChild(back);nav.appendChild(gear);app.appendChild(nav);
-    if(mode==='local')app.appendChild(el('div','local','הרשימות נשמרות רק במכשיר הזה'));
 
     var m=el('div','machine');m.style.setProperty('--c',l.color||CABS[0]);
     var sign=el('div','sign');sign.appendChild(el('small',null,'שיחות שוקו עם'));sign.appendChild(el('h1',null,l.name));
     var li=el('div','lights');for(var i=0;i<9;i++)li.appendChild(el('i'));sign.appendChild(li);m.appendChild(sign);
     var glass=el('div','glass');glass.appendChild(el('div','rail'));
-    var cz=el('div','chutezone');cz.appendChild(el('span',null,'פרסים'));glass.appendChild(cz);
+    var cz=el('div','chutezone');cz.appendChild(el('span',null,'דוברו'));glass.appendChild(cz);
     var claw=el('div','claw open');var cable=el('div','cable');cable.style.height='14px';var head=el('div','head');head.innerHTML=CLAW;
     claw.appendChild(cable);claw.appendChild(head);glass.appendChild(claw);
-    if(!open.length)glass.appendChild(el('div','mempty',mine.length?'המכונה ריקה. כל הנושאים נתפסו!':'המכונה ריקה. הכניסו נושא ראשון למטה'));
+    if(!open.length)glass.appendChild(el('div','mempty',mine.length?'המכונה ריקה. כל הנושאים נתפסו!':'המכונה ריקה. הכניסי נושא ראשון למטה'));
     m.appendChild(glass);
 
     var panel=el('div','panel');
     var form=el('form','slot');form.autocomplete='off';
-    var inp=el('input');inp.type='text';inp.maxLength=120;inp.placeholder='הכניסו נושא חדש למכונה';inp.setAttribute('aria-label','נושא חדש');
-    var add=el('button',null,'הוסיפו');add.type='submit';form.appendChild(inp);form.appendChild(add);
+    var inp=el('input');inp.type='text';inp.maxLength=120;inp.placeholder='הכניסי נושא חדש למכונה';inp.setAttribute('aria-label','נושא חדש');
+    var add=el('button',null,'הוסיפי');add.type='submit';form.appendChild(inp);form.appendChild(add);
     form.onsubmit=function(e){e.preventDefault();var v=inp.value;if(!v.trim())return;addTopic(l.id,v)};
-    var big=el('button','bigbtn','תפסו נושא!');big.type='button';big.disabled=!open.length;big.onclick=play;
+    var big=el('button','bigbtn','תפסי נושא!');big.type='button';big.disabled=!open.length;big.onclick=function(){play()};
     panel.appendChild(form);panel.appendChild(big);m.appendChild(panel);app.appendChild(m);
 
     layout={glass:glass,claw:claw,cable:cable,open:open,list:l,balls:{}};
     placeBalls();
 
-    var h=el('h2','sec','מחכים במכונה');h.appendChild(el('span','cnt',String(open.length)));app.appendChild(h);
+    var h=el('h2','sec','שיחות שוקו');h.appendChild(el('span','cnt',String(open.length)));app.appendChild(h);
     var grp=el('div','group');
-    if(!open.length)grp.appendChild(el('div','rowempty','אין נושאים שמחכים'));
+    if(!open.length)grp.appendChild(el('div','rowempty','אין עדיין שיחות שוקו במכונה'));
     open.slice().reverse().forEach(function(t){
       var r=el('div','row');r.style.setProperty('--bc',ballColor(t.id));
       var c=el('button','chk');c.type='button';c.innerHTML=CHECK;c.setAttribute('aria-label','דיברנו על: '+t.text);
       c.onclick=function(){c.classList.add('on');setTimeout(function(){setDone(t.id,true)},380)};
       var tx=el('div','tx',t.text);tx.onclick=function(){openEdit(t.id)};
-      r.appendChild(c);r.appendChild(tx);r.appendChild(el('span','dot'));grp.appendChild(r);
+      r.appendChild(c);r.appendChild(tx);r.appendChild(el('span','chip',iconOf(t)));grp.appendChild(r);
     });
     app.appendChild(grp);
 
-    var h2=el('h2','sec','הפרסים שלנו');h2.appendChild(el('span','cnt',String(done.length)));app.appendChild(h2);
+    var h2=el('h2','sec','שיחות השוקו שכבר דוברו');h2.appendChild(el('span','cnt',String(done.length)));app.appendChild(h2);
     var sh=el('div','shelf');
-    if(!done.length)sh.appendChild(el('div','none','כאן יופיעו השיחות שכבר היו. תפסו את הראשונה!'));
+    if(!done.length)sh.appendChild(el('div','none','כאן יופיעו השיחות שכבר דוברו. תפסי את הראשונה!'));
     done.forEach(function(t,idx){
       var p=el('div','prize'+(t.id===popId?' pop':''));p.style.setProperty('--bc',ballColor(t.id));p.tabIndex=0;p.setAttribute('role','button');
       p.style.animationDelay=Math.min(idx*40,400)+'ms';
       p.onclick=function(){openEdit(t.id)};p.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openEdit(t.id)}};
-      var tp=el('div');tp.appendChild(el('div','pb'));tp.appendChild(el('div','t',t.text));if(t.note)tp.appendChild(el('div','note',t.note));
-      p.appendChild(tp);p.appendChild(el('div','d',fmt(t.doneAt)||'נתפס'));
+      var tp=el('div');var pb=el('div','pb');pb.appendChild(el('span','face',iconOf(t)));tp.appendChild(pb);tp.appendChild(el('div','t',t.text));if(t.note)tp.appendChild(el('div','note',t.note));
+      p.appendChild(tp);p.appendChild(el('div','d',fmt(t.doneAt)||'דוברה'));
       sh.appendChild(p);
     });
     app.appendChild(sh);
@@ -446,7 +529,7 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
     var g=layout.glass,W=g.clientWidth,H=g.clientHeight,open=layout.open;
     layout.W=W;layout.H=H;layout.balls={};
     if(!open.length||!W)return;
-    var CH=70,avail=W-CH-8,n=open.length,sizes=[54,48,42,36,31,27,23,20],s=sizes[sizes.length-1],step,cols=1;
+    var CH=70,avail=W-CH-8,n=open.length,sizes=[56,50,44,38,33,29,25,22],s=sizes[sizes.length-1],step,cols=1;
     for(var k=0;k<sizes.length;k++){
       s=sizes[k];step=s*0.94;cols=Math.max(1,Math.floor((avail-step/2)/step));
       var rows=Math.ceil(n/cols);
@@ -459,10 +542,10 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
       var hs=hash(t.id);
       var x=x0+c*step+((hs%100)/100-.5)*step*.18;
       var y=14+r*s*0.8+(((hs>>3)%100)/100-.5)*s*.1;
-      var b=el('div','ball'+(t.id===dropId?' drop':''));
-      b.style.cssText='width:'+s+'px;height:'+s+'px;left:'+x+'px;bottom:'+y+'px;--bc:'+ballColor(t.id);
+      var b=makeBall(t,s,'ball'+(t.id===dropId?' drop':''));
+      b.style.left=x+'px';b.style.bottom=y+'px';
       b.title=t.text;b.setAttribute('role','button');b.setAttribute('aria-label',t.text);
-      (function(id){b.onclick=function(){if(!busy)openEdit(id)}})(t.id);
+      (function(tt){b.onclick=function(){if(!busy)play(tt)}})(t);
       g.appendChild(b);
       layout.balls[t.id]={el:b,x:x,y:y,s:s};
     });
@@ -471,11 +554,15 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
   }
 
   /* ---------- the claw ---------- */
-  async function play(){
+  async function play(target){
     if(busy||!layout)return;
     var open=layout.open;if(!open.length){toast('המכונה ריקה');return}
-    var pool=open.length>1?open.filter(function(t){return t.id!==lastPick}):open;
-    var t=pool[Math.floor(Math.random()*pool.length)];lastPick=t.id;
+    var t=target;
+    if(!t){
+      var pool=open.length>1?open.filter(function(x){return x.id!==lastPick}):open;
+      t=pool[Math.floor(Math.random()*pool.length)];
+    }
+    lastPick=t.id;
     var info=layout.balls[t.id];
     if(reduced()||!info){openReveal(t,open.length>1);return}
     busy=true;
@@ -486,24 +573,24 @@ h2.sec{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin:38px 4px 12p
     var chuteX=36;
     try{
       claw.classList.add('open');
-      claw.style.left=cx+'px';await sleep(1000);
-      cable.style.height=hGrab+'px';await sleep(1000);
-      claw.classList.remove('open');await sleep(450);
-      var held=el('div','ball');
-      held.style.cssText='width:'+info.s+'px;height:'+info.s+'px;position:relative;left:0;bottom:auto;--bc:'+ballColor(t.id)+';cursor:default;transition:none';
+      claw.style.left=cx+'px';await sleep(650);
+      cable.style.height=hGrab+'px';await sleep(650);
+      claw.classList.remove('open');await sleep(320);
+      var held=makeBall(t,info.s,'ball');
+      held.style.position='relative';held.style.left='0';held.style.bottom='auto';held.style.cursor='default';held.style.transition='none';
       var hw=el('div','held');hw.appendChild(held);
       head.appendChild(hw);
       info.el.style.visibility='hidden';
-      cable.style.height='10px';await sleep(1000);
-      claw.style.left=chuteX+'px';await sleep(1100);
+      cable.style.height='10px';await sleep(650);
+      claw.style.left=chuteX+'px';await sleep(750);
       var hDrop=Math.max(50,H-info.s-120);
-      cable.style.height=hDrop+'px';await sleep(1000);
+      cable.style.height=hDrop+'px';await sleep(650);
       claw.classList.add('open');
       var fall=H-(16+hDrop+40)-info.s-14;
       hw.style.transform='translateX(-50%) translateY('+Math.max(0,fall)+'px)';
-      await sleep(650);
-      var landed=el('div','ball');
-      landed.style.cssText='width:'+info.s+'px;height:'+info.s+'px;left:'+Math.max(2,chuteX-info.s/2)+'px;bottom:14px;--bc:'+ballColor(t.id)+';transition:none;cursor:default';
+      await sleep(480);
+      var landed=makeBall(t,info.s,'ball');
+      landed.style.left=Math.max(2,chuteX-info.s/2)+'px';landed.style.bottom='14px';landed.style.transition='none';landed.style.cursor='default';
       L.glass.appendChild(landed);hw.remove();
       cable.style.height='14px';claw.style.left=Math.round(W/2+30)+'px';
       busy=false;L.dirty=true;
