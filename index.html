@@ -180,10 +180,9 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .sbar h4{font-size:.8rem;font-weight:700;color:var(--gray);margin:0 6px 8px;letter-spacing:.2px}
 .sb{position:relative;width:64px;height:64px;border:0;background:none;padding:0;display:block;color:inherit;text-decoration:none;transition:transform .25s var(--spring)}
 .sb .pc{position:absolute;inset:6px;border-radius:50%;background:#fff;background:linear-gradient(160deg,#fff,color-mix(in srgb,var(--wc) 18%,#fff));color:color-mix(in srgb,var(--wc) 60%,#4b2a1a);display:grid;place-items:center;box-shadow:0 8px 14px -8px rgba(70,50,110,.45),inset 0 0 0 1.5px color-mix(in srgb,var(--wc) 45%,#fff)}
-.sb .pc.ph{inset:-6px -2px -4px;background:none;box-shadow:none;border-radius:0}
-.sb .pc.ph{display:flex;align-items:flex-end;justify-content:center;overflow:visible}
+.sb .pc.ph{overflow:visible}
 .sb:not(.un) .pc.ph img{opacity:0;transform:scale(.6) translateY(14px)}
-.sb .pc.ph img{transition:opacity .4s ease .25s,transform .5s var(--spring) .25s;height:76px;width:auto;max-width:none;display:block;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
+.sb .pc.ph img{position:absolute;left:50%;bottom:2px;margin-left:-24px;transition:opacity .4s ease .25s,transform .5s var(--spring) .25s;transform-origin:50% 100%;height:78px;width:auto;max-width:none;display:block;filter:drop-shadow(0 5px 5px rgba(0,0,0,.25))}
 .sb .pc svg{width:26px;height:26px}
 .sb .wr{position:absolute;inset:-2px;color:var(--wc);transition:transform .55s cubic-bezier(.5,-.3,.5,1.4),opacity .45s ease .1s;filter:drop-shadow(0 3px 4px rgba(0,0,0,.2))}
 .sb .wr svg{width:100%;height:100%;display:block}
@@ -1376,7 +1375,11 @@ a.btn{text-decoration:none;display:inline-block}
       var r=node.getBoundingClientRect(),bw=bub.offsetWidth,bh=bub.offsetHeight,cx=r.left+r.width/2;
       left=Math.max(12,Math.min(window.innerWidth-bw-12,cx-bw/2));
       top=r.top-bh-18;var below=false;
-      if(top<12){top=r.bottom+18;below=true;bub.classList.add('below')}
+      if(top<12){
+        if(r.bottom+18+bh>window.innerHeight-90){window.scrollBy(0,r.top-72);r=node.getBoundingClientRect()}
+        top=r.bottom+18;below=true;bub.classList.add('below');
+      }
+      top=Math.max(8,Math.min(top,window.innerHeight-bh-96));
       var tx=Math.max(20,Math.min(bw-20,cx-left));
       tail.style.left=tx+'px';ox=tx+'px';oy=below?'0':'100%';
       node.classList.add('burst');
@@ -1487,7 +1490,7 @@ a.btn{text-decoration:none;display:inline-block}
     readRoute();
     var o=loadLocal();lists=o.lists;topics=o.topics;todos=o.todos;mode='local';got.lists=true;start();
     startPolling();pull(true);
-    try{if(!localStorage.getItem('shoko-welcome')&&!/[?&]join=/.test(location.search)){
+    try{if(!localStorage.getItem('shoko-welcome')){
       var w=document.createElement('div');w.className='welcome';w.setAttribute('role','dialog');
       w.innerHTML='<b>ברוכות הבאות לשיחות שוקו</b><ol><li>אוספות נושאי שיחה.</li><li>קובעות שוקו בבית קפה ומדברות עליהם.</li><li>כל שיחה שסיימנו מנקבת את הכרטיסייה.</li><li>כל שלושה ניקובים פותחים הפתעה.</li></ol>';
       var bt=document.createElement('button');bt.type='button';bt.textContent='לרוויה';
