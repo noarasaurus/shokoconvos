@@ -304,7 +304,7 @@ a.btn{text-decoration:none;display:inline-block}
   }
   var $=function(id){return document.getElementById(id)};
   /* שיתוף: הדביקי כאן את כתובת מסד הנתונים של Firebase, לדוגמה https://my-app-default-rtdb.firebaseio.com */
-  var SYNC_URL=window.SHOKO_SYNC_URL||(function(){try{var m=location.search.match(/[?&]db=([^&]+)/);if(m){var u=decodeURIComponent(m[1]);if(/^https:\/\//.test(u)){localStorage.setItem('shoko-sync',u);return u}}return localStorage.getItem('shoko-sync')||''}catch(e){return''}})();
+  var SYNC_URL=window.SHOKO_SYNC_URL||'https://shokoconvo-default-rtdb.europe-west1.firebasedatabase.app'||(function(){try{var m=location.search.match(/[?&]db=([^&]+)/);if(m){var u=decodeURIComponent(m[1]);if(/^https:\/\//.test(u)){localStorage.setItem('shoko-sync',u);return u}}return localStorage.getItem('shoko-sync')||''}catch(e){return''}})();
   var room='',pending=0,lastWrite=0,lastSig='',pollT=null;
   var lists=[],topics=[],mode='pending',cols={},got={lists:false,topics:false},ready=false;
   var refocus=false,routeId=null,dropId=null,popId=null,busy=false,lastPick=null,editMode=false,toastT;
